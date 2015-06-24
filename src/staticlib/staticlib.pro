@@ -1,4 +1,4 @@
-# Copyright 2010, 2011 wkhtmltopdf authors
+# Copyright 2010 wkhtmltopdf authors
 #
 # This file is part of wkhtmltopdf.
 #
@@ -15,7 +15,31 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with wkhtmltopdf.  If not, see <http:#www.gnu.org/licenses/>.
 
-TEMPLATE = subdirs
+TEMPLATE = lib
+CONFIG += staticlib
 
-CONFIG += ordered
-SUBDIRS = src/staticlib src/pdf src/image #src/lib 
+include(../../common.pri)
+include(../lib/lib.pri)
+
+DEF_FILE = lib.def
+CONFIG(static, shared|static): DEFINES += QT_NODLL
+
+unix {
+   headers.target=headers
+   headers.files=../../include/wkhtmltox/*.h ../../include/wkhtmltox/*.inc
+   headers.path=$$INSTALLBASE/include/wkhtmltox
+
+   QMAKE_EXTRA_TARGETS += headers
+   INSTALLS += headers
+}
+
+windows {
+   TARGET_EXT=.lib
+}
+
+TARGET=wkhtmltox
+INSTALLS += target
+wkhtmltox.path=$$INSTALLBASE/lib
+
+DESTDIR = ../../bin
+target.path=$$INSTALLBASE/lib

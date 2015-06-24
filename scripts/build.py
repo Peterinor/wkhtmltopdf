@@ -947,7 +947,7 @@ def build_msvc(config, basedir):
     build_deplibs(config, basedir)
 
     sha1, url = MSVC_RUNTIME[rchop(config, '-dbg')]
-    shutil.copy(download_file(url, sha1, basedir), os.path.join(basedir, config, 'vcredist.exe'))
+    # shutil.copy(download_file(url, sha1, basedir), os.path.join(basedir, config, 'vcredist.exe'))
 
     libdir = os.path.join(basedir, config, 'deplibs')
     qtdir  = os.path.join(basedir, config, 'qt')
@@ -975,10 +975,10 @@ def build_msvc(config, basedir):
     shell('%s\\bin\\qmake %s\\..\\wkhtmltopdf.pro' % (qtdir, basedir))
     shell('nmake')
 
-    makensis = os.path.join(get_registry_value(r'SOFTWARE\NSIS'), 'makensis.exe')
-    os.chdir(os.path.join(basedir, '..'))
-    shell('"%s" /DVERSION=%s /DSIMPLE_VERSION=%s /DTARGET=%s /DMSVC /DARCH=%s wkhtmltox.nsi' % \
-            (makensis, version, simple_version, config, arch))
+    # makensis = os.path.join(get_registry_value(r'SOFTWARE\NSIS'), 'makensis.exe')
+    # os.chdir(os.path.join(basedir, '..'))
+    # shell('"%s" /DVERSION=%s /DSIMPLE_VERSION=%s /DTARGET=%s /DMSVC /DARCH=%s wkhtmltox.nsi' % \
+    #         (makensis, version, simple_version, config, arch))
 
 # ------------------------------------------------ MinGW-W64 Cross Environment
 
